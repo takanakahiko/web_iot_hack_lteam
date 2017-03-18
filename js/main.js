@@ -7,10 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
     yield ads1015Init(port, 0x48, 0);
     setInterval(()=>{
       spawn(function(){
+        yield ads1015Init(port, 0x48, 0);
         const twist = yield getTwist(port, 0x48, 0);
         document.querySelector("#accelerometer").textContent = twist;
+        band_play(twist / 2000.0);
       });
-    }, 6000);
+    }, 4200 - 200);
   });
 });
 
