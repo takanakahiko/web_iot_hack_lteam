@@ -33,10 +33,14 @@ document.addEventListener("DOMContentLoaded", () => {
         //document.querySelector("#lux").textContent = "lux: "+lux;
         document.querySelector("#accelerometer").textContent = "acceleromter: " + accelerometer.x + ","+ accelerometer.y + ","+ accelerometer.z;
 
-
+        // ジャイロセンサ可視化処理
         $('#accelerometerX').animate({'width': (accelerometer.x + 16) * 1 + "%" });
         $('#accelerometerY').animate({'width': (accelerometer.y + 16) * 1 + "%" });
         $('#accelerometerZ').animate({'width': (accelerometer.z + 16) * 1 + "%" });
+
+        // エフェクタ数値変更処理
+        $('#freq').val((accelerometer.x + 16) / 32);
+        FilterSample.changeFrequency(document.querySelector('#freq'));
 
         //const moist = ads1015.read(0);
         //document.querySelector("#moisture").textContent = "moisture: " + moist;

@@ -7,8 +7,13 @@
   <script src="js/task.js"></script>
   <script src="js/webgpio.js"></script>
   <script src="js/webi2c.js"></script>
-  <script src="js/nakayama_temp.js" type="application/javascript;version=1.7"></script>
+  <script src="js/ADS1015.js" type="application/javascript;version=1.7"></script>
   <script src="js/main.js" type="application/javascript;version=1.7"></script>
+
+  <script src="js/buffer-loader.js"></script>
+  <script src="js/sound_temp.js"></script>
+  <script src="js/sound_init.js"></script>
+
 </head>
 <body>
   <div id="temp">test</div>
@@ -19,6 +24,13 @@
   <div id="accelerometerY" style="background:#0F0">.</div>
   <div id="accelerometerZ" style="background:#00F">.</div>
   <div id="moisture">test</div>
+
+  <p>
+    <input type="button" onclick="FilterSample.toggle();" value="Play/Pause"/>
+    Filter on: <input type="checkbox" checked="false" oninput="FilterSample.toggleFilter(this);"/>
+    Frequency: <input id="freq" type="range" min="0" max="1" step="0.01" value="1" oninput="FilterSample.changeFrequency(this);" />
+    Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="FilterSample.changeQuality(this);" />
+  </p>
 
   <div id="myconsole" style="color:#BBB">---- Log ----</div>
 
