@@ -111,7 +111,7 @@ Promise.prototype = {
     },
     timeout: function(delay, compensate) {
         return choose(this, sleep(delay, compensate).then(function() {
-            throw new Error("timeout (" + delay + ")") 
+            throw new Error("timeout (" + delay + ")")
         }));
     }
 };
@@ -577,3 +577,6 @@ global.task = exports = {
 };
 
 })(this);
+
+// task.js ライブラリ
+const { spawn, sleep } = task;

@@ -1,5 +1,4 @@
-// task.js ライブラリ
-const { spawn, sleep } = task;
+
 // document 内のリソースが読み終わるのを待つ
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -11,8 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // I2C 0 ポートを使うので、0 を指定してポートを取得
     const port = accessor.ports.get(0);
 
-    yield groveLightInit(port,0x29);
+    //yield groveLightInit(port,0x29);
     yield groveAccelerometerInit(port,0x53);
+
+    //let ads1015 = new ADS1015(port,0x48);
+    //yield ads1015.init();
 
     let angle = 0
     let direction= 1;
@@ -20,16 +22,24 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval( ()=>{
       spawn(function(){
 
-        const temp = yield getTemp(port,0x48);
-        const distance = yield getDistance(port,0x70);
-        const lux = yield getLight(port,0x29);
+        //const temp = yield getTemp(port,0x48);
+        //const distance = yield getDistance(port,0x70);
+        //const lux = yield getLight(port,0x29);
         const accelerometer = yield getAccelerometer(port,0x53);
 
         // HTML 画面に距離を表示
-        document.querySelector("#temp").textContent = "temp: " + temp;
-        document.querySelector("#distance").textContent = "distance: "+distance;
-        document.querySelector("#lux").textContent = "lux: "+lux;
+        //document.querySelector("#temp").textContent = "temp: " + temp;
+        //document.querySelector("#distance").textContent = "distance: "+distance;
+        //document.querySelector("#lux").textContent = "lux: "+lux;
         document.querySelector("#accelerometer").textContent = "acceleromter: " + accelerometer.x + ","+ accelerometer.y + ","+ accelerometer.z;
+
+
+        $('#accelerometerX').animate({'width': (accelerometer.x + 16) * 1 + "%" });
+        $('#accelerometerY').animate({'width': (accelerometer.y + 16) * 1 + "%" });
+        $('#accelerometerZ').animate({'width': (accelerometer.z + 16) * 1 + "%" });
+
+        //const moist = ads1015.read(0);
+        //document.querySelector("#moisture").textContent = "moisture: " + moist;
 
       });
 
@@ -160,7 +170,7 @@ function getAccelerometer(port,addr){
       let z = zL + (zH << 8);
       if(z & (1 << 16 - 1)){z = z - (1<<16);}
 
-      console.log(x);
+      //console.log(x);
 
       const EARTH_GRAVITY_MS2=9.80665;
       const SCALE_MULTIPLIER=0.004;
@@ -177,8 +187,12 @@ function getAccelerometer(port,addr){
       y=Math.round(y*10000)/10000;
       z=Math.round(z*10000)/10000;
 
+      x=Math.round(x);
+      y=Math.round(y);
+      z=Math.round(z);
+
       const accelerometer = {"x": x, "y": y, "z": z};
-      console.log(accelerometer.x);
+      //console.log(accelerometer.x);
 
       resolve(accelerometer);
 
