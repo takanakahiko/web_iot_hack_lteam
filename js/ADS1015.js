@@ -18,7 +18,7 @@ ADS1015.prototype = {
     let self = this;
     return new Promise(function(resolve, reject) {
       spawn(function() {
-        if ((channel > 3) || (channel < 0)) {
+        if ((channel > 4) || (channel < 0)) {
           console.log("ADS1015.read: channel error" + channel);
           err.code = 5;
           reject(err.message);

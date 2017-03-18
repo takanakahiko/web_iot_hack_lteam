@@ -11,8 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(()=>{
       spawn(function(){
         const twist = yield ads1015.read(0);
+        const water = yield ads1015.read(1);
         const color = yield groveColor.read();
         console.log(twist);
+        console.log(water);
         console.log(color);
         document.querySelector("#accelerometer").textContent = twist;
         band_play(twist / 2000.0);
