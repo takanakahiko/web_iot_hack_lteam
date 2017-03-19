@@ -21,8 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(color);
         console.log(accelerometer);
         console.log(distance);
-        document.querySelector("#accelerometer").textContent = twist;
-        band_play(twist / 2000.0);
+        var paramValue = (twist + water + color.r + color.g + color.b + accelerometer.x + accelerometer.y + accelerometer.z + distance) % 100;
+        $(".wave").css({opacity: '0.' + Math.round(paramValue)});
+        console.log(paramValue);
+        band_play(paramValue);
       });
     }, 4200 - 200);
   });

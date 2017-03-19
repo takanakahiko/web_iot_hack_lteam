@@ -163,21 +163,94 @@ var band_play = function(input){
             .rest('half');
     }
 
+    function macd(_num){
+        var tone_num = get_tone_index(_tone);
+        rightHand.note('sixteenth', tone[7] + lebel[_num-1])
+            .note('sixteenth', tone[5] + lebel[_num-1])
+            .note('sixteenth', tone[7] + lebel[_num-1])
+            .rest('sixteenth')
+            .note('sixteenth', tone[7] + lebel[_num-1])
+            .note('sixteenth', tone[5] + lebel[_num-1])
+            .note('sixteenth', tone[7] + lebel[_num-1])
+            .rest('sixteenth')
+            .note('sixteenth', tone[7] + lebel[_num-1])
+            .note('sixteenth', tone[5] + lebel[_num-1])
+            .note('sixteenth', tone[7] + lebel[_num-1])
+            .rest('sixteenth')
+            .note('sixteenth', tone[7] + lebel[_num-1])
+            .note('sixteenth', tone[5] + lebel[_num-1])
+            .note('sixteenth', tone[7] + lebel[_num-1])
+            .rest('sixteenth')
+            .note('sixteenth', tone[7] + lebel[_num-1])
+            .note('sixteenth', tone[5] + lebel[_num-1])
+            .note('sixteenth', tone[7] + lebel[_num-1])
+            .rest('sixteenth')
+            .rest('quarter');
+    }
+
+    function step(_tone, _num){
+        var tone_num = get_tone_index(_tone);
+        rightHand.note('eighth', get_tone(tone_num, _num, 0))
+            .note('eighth', get_tone(tone_num, _num, -1))
+            .note('eighth', get_tone(tone_num, _num, -2))
+            .note('eighth', get_tone(tone_num, _num, -3))
+            .note('eighth', get_tone(tone_num, _num, -4))
+            .note('eighth', get_tone(tone_num, _num, -5))
+            .note('eighth', get_tone(tone_num, _num, -6))
+            .note('eighth', get_tone(tone_num, _num, -7))
+            .note('eighth', get_tone(tone_num, _num, _8))
+            .note('quarter', get_tone(tone_num, _num, -9))
+            .rest('eighth');
+    }
+
+    function black(_tone, _num){
+        var tone_num = get_tone_index(_tone);
+        rightHand.note('sixteenth', get_tone_index(tone_num, _num, 0))
+            .note('sixteenth', get_tone_index(tone_num, _num, -1))
+            .note('sixteenth', get_tone_index(tone_num, _num, 0))
+            .note('sixteenth', get_tone_index(tone_num, _num, -1))
+            .note('sixteenth', get_tone_index(tone_num, _num, 0))
+            .note('sixteenth', get_tone_index(tone_num, _num, -1))
+            .note('sixteenth', get_tone_index(tone_num, _num, 0))
+            .note('sixteenth', get_tone_index(tone_num, _num, -1))
+            .note('sixteenth', get_tone_index(tone_num, _num, 0))
+            .note('sixteenth', get_tone_index(tone_num, _num, -1))
+            .note('sixteenth', get_tone_index(tone_num, _num, 0))
+            .note('sixteenth', get_tone_index(tone_num, _num, -1))
+            .note('sixteenth', get_tone_index(tone_num, _num, 0))
+            .note('sixteenth', get_tone_index(tone_num, _num, -1))
+            .note('sixteenth', get_tone_index(tone_num, _num, 0))
+            .note('sixteenth', get_tone_index(tone_num, _num, -1))
+            .note('sixteenth', get_tone_index(tone_num, _num, 0))
+            .note('sixteenth', get_tone_index(tone_num, _num, -1))
+            .note('sixteenth', get_tone_index(tone_num, _num, 0))
+            .note('sixteenth', get_tone_index(tone_num, _num, -1))
+            .note('sixteenth', get_tone_index(tone_num, _num, 0))
+            .note('sixteenth', get_tone_index(tone_num, _num, -1))
+    }
+
     // 1~100の値を受け取る
     function get_music(_value){
-        if(_value > 50){
+        if(_value > 80){
             basic_melody('C', 4);
             console.log('basic-c');
-        } else {
+        } else if(_value > 60){
+            macd(4);
+            console.log('macd_melody');
+        } else if(_value > 40){
             dark('C',4);
-            console.log('basic-d');
+            console.log('dark');
+        } else if(_value > 20){
+            step('C', 5);
+        } else {
+            black('D', 4);
         }
     }
 
     console.log('playing = ' + playing);
 
     //var value = Math.random()*100;
-    var value = input*100;
+    var value = input;
     get_music(value);
     var player = conductor.finish();
     // console.log(player);
